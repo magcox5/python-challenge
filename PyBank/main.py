@@ -6,6 +6,16 @@ import locale
 import sys
 
 
+def print_summary(total_months, total_profit, avg_change, greatest_increase_profit, greatest_decrease_profit):
+    print("Financial Analysis  [Negative Numbers in ()]")
+    print("-----------------------------------------------------")
+    print(f"Total Months:  {total_months}")
+    print(f"Total:  {locale.currency(total_profit, grouping = True)}")
+    print(f"Average Change: {locale.currency(sum_profit_change/(total_months-1), grouping = True)}")
+    print(f"Greatest Profit Increase: {greatest_increase_month} {locale.currency(greatest_increase_profit, grouping = True)}")
+    print(f"Greatest Profit Decrease: {greatest_decrease_month} {locale.currency(greatest_decrease_profit, grouping = True)}")
+
+
 # set locale for currency
 locale.setlocale( locale.LC_ALL, '' )
 
@@ -54,32 +64,23 @@ with open(budget_csv, 'r') as csvfile:
             last_row = float(row[1])
             sum_profit_change = sum_profit_change + row_difference
 
+    avg_change = sum_profit_change/(total_months-1)
+    
+    # Write summary data to screen
+    print_summary(total_months, total_profit, avg_change, greatest_increase_profit, greatest_decrease_profit)
 
-    print("Financial Analysis  [Negative Numbers in ()]")
-    print("-----------------------------------------------------")
-    print(f"Total Months:  {total_months}")
-    print(f"Total:  {locale.currency(total_profit, grouping = True)}")
-    print(f"Average Change: {locale.currency(sum_profit_change/(total_months-1), grouping = True)}")
-    print(f"Greatest Profit Increase: {greatest_increase_month} {locale.currency(greatest_increase_profit, grouping = True)}")
-    print(f"Greatest Profit Decrease: {greatest_decrease_month} {locale.currency(greatest_decrease_profit, grouping = True)}")
-
+    # Write summary data to txt file
     orig_stdout = sys.stdout
     filename  = open("budget_summary",'w')
     sys.stdout = filename
 
-    # Write summary data to txt file
-    print("Financial Analysis  [Negative Numbers in ()]")
-    print("-----------------------------------------------------")
-    print(f"Total Months:  {total_months}")
-    print(f"Total:  {locale.currency(total_profit, grouping = True)}")
-    print(f"Average Change: {locale.currency(sum_profit_change/(total_months-1), grouping = True)}")
-    print(f"Greatest Profit Increase: {greatest_increase_month} {locale.currency(greatest_increase_profit, grouping = True)}")
-    print(f"Greatest Profit Decrease: {greatest_decrease_month} {locale.currency(greatest_decrease_profit, grouping = True)}")
+    print_summary(total_months, total_profit, avg_change, greatest_increase_profit, greatest_decrease_profit)
 
     sys.stdout = orig_stdout
     filename.close()
     
 
+    
         
 
         
