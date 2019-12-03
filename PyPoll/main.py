@@ -5,9 +5,6 @@ import csv
 import sys
 import operator
 
-x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
-sorted_x = sorted(x.items(), key=operator.itemgetter(1))
-
 def print_summary(total_votes, candidate_results):
 
     sorted_results = sorted(candidate_results.items(), key=operator.itemgetter(1), reverse=True)
@@ -66,5 +63,4 @@ with open(election_csv, 'r') as csvfile:
     # Reset output to screen, and close results file
     sys.stdout = orig_stdout
     filename.close()
-    print("Back to the terminal...")
     
